@@ -1,11 +1,4 @@
-from funcoes import intervalo_tempo_int
-from funcoes import verificacao_intervalo_tempo
-from funcoes import add_lista
-from funcoes import del_lista
-from funcoes import alterar_lista
-from funcoes import print_lista
-from funcoes import rotina_print
-from funcoes import predefinicoes
+from funcoes import *
 
 from funcionario import Funcionario
 
