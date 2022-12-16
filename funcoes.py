@@ -1,103 +1,121 @@
-from funcionario import Funcionario
-from onibus import Onibus
-def intervalo_tempo_int(cont_intervalo_tempo):
-    hora = int(cont_intervalo_tempo[0])
-    hora_fracao_string = cont_intervalo_tempo[2] + cont_intervalo_tempo[3]
-    hora_fracao = float(hora_fracao_string) / 60
-    return hora + hora_fracao           
-def verificacao_intervalo_tempo(cont_intervalo_tempo):
-    if len(cont_intervalo_tempo) == 5 and cont_intervalo_tempo.count('h') == 1 and cont_intervalo_tempo[len(cont_intervalo_tempo) - 1] == 'h' and cont_intervalo_tempo.count(':') == 1 and cont_intervalo_tempo[len(cont_intervalo_tempo) - 4] == ':':
-        cont_num = 0 
-        cont_0 = 0
-        for i in cont_intervalo_tempo:
-            if i != ':' and i != 'h':
-                if i == '0' or i == '1' or i == '2' or i == '3' or i == '4' or i == '5' or i == '6':
-                    cont_num += 1
-                    if i == '0':
-                        cont_0 += 1
-        if cont_num == 3 and cont_0 < 3:
-            return False
-        else:
-            return True
-    else:
-        return True 
-def add_lista(lista,n,lista_nome):
-    for i in range(n):
-        string_nome = ''
-        string_funcao = ''
-        while len(string_nome) > 10 or len(string_nome) < 3 or (string_funcao != 'cobrador' and string_funcao != 'motorista'):
-            string_nome = input('Informe o(a) {}o(a) novo(a) integrante dos {}[10 > string > 3 ]: '.format(i + 1, lista_nome))
-            string_funcao = input('Informe a funcao do novo(a) integrante dos {}:  '.format(lista_nome)).lower()
-            if (len(string_nome) > 10 or len(string_nome) < 3) and len(string_funcao) != 9 and len(string_funcao) != 8:
-                print('Erro! Escreva no formato especificado.')
-        func = Funcionario(string_nome, string_funcao)
-        lista.append(func)
-    return lista
-def del_lista(lista,n,lista_nome):
-    for i in range(n):
-        string = ''
-        condicao = False
-        objeto = object
-        while condicao == False:
-            cont = 0
-            string = input('Informe o {}o a ser deletado de {}: '.format(i + 1, lista_nome))
-            for j in lista:
-                if j.get_nome() != string:
-                    cont += 1
-                else:
-                    objeto = j
-            if cont != len(lista):
-                condicao = True
-        lista.remove(objeto)
-    return lista
+def media(lista, string):
+    soma = 0
+    for num in lista:
+        soma += num
+    print(f'Media {string}: {soma/len(lista)}')
 
-    return lista
-def alterar_lista(lista, lista_nome):
-    op = ''
-    op_del = ''
-    op_add = ''
-    quantidade_del = 0
-    quantidade_add = 0
-    while op != 's' and op != 'n':
-        op = input('\nDeseja alterar a lista de {}[s/n]? '.format(lista_nome)).lower()
-        if op != 's' and op != 'n':
-            print('\nErro! Digite "s", caso deseje alterar ou "n", caso não: ')
-    if op == 's':
-        while op_del != 's' and op_del != 'n':
-            op_del = input('\nDeseja deletar algum {} da lista[s/n]? '.format(lista_nome)).lower()
-        if op_del != 's' and op_del != 'n':
-            print('\nErro! Digite "s", caso deseje deletar ou "n", caso não: ')
-       
-        if op_del == 's':
-            while quantidade_del < 1 or quantidade_del > 20:
-                quantidade_del = int(input('\nInforme a quantidade de {} para deletar[{} >= quantidade >= 1]: '.format(lista_nome, len(lista))))
-                if quantidade_del < 1 or quantidade_del > len(lista):
-                    print('\nErro! Número informado está fora dos limites')
-            lista = del_lista(lista,quantidade_del, lista_nome)
-       
-        while op_add != 's' and op_add != 'n':
-            op_add = input('\nDeseja adicionar {}[s/n]? '.format(lista_nome)).lower()
-            if op_add != 's' and op_add != 'n':
-                print('\nErro! Digite "s", caso deseje adicionar ou "n", caso não: ')
-       
-        if op_add == 's':
-            while quantidade_add < 1 or quantidade_add > 20:
-                quantidade_add = int(input('\nInforme a quantidade de {} para adicionar[20 >= quantidade >= 1]: '.format(lista_nome)))
-                if quantidade_add < 1 or quantidade_add > 20:
-                    print('\nErro! Número informado está fora dos limites')
-            lista = add_lista(lista,quantidade_add,lista_nome)
-        return lista
-        
+def verifica_idade():
+    idade = 0
+    while idade > 80 or idade < 20:
+        idade = int(input('Informe a idade [20 a 80]: '))
+        if idade > 80 or idade < 20:
+            print('Erro! Informe um valor no formato indicado.')
+    return idade
+
+def verifica_funcao():
+    funcao = ''
+    while funcao != 'cobrador' and funcao != 'motorista':
+        funcao = input('Informe a funcao [cobrador|motorista]: ').lower()
+        if funcao != 'cobrador' and funcao != 'motorista':
+            print('Erro! Informe uma funcao valida.')
+    return funcao
+
+def verifica_id(funcao, ids_em_uso):
+    id = ''
+    if funcao == 'motorista':
+        while len(id) != 2 and id in ids_em_uso:
+            id = input(
+                "Informe o id: [4 numeros = cobrador| 2 numeros = motorista] ")
+            if len(id) != 2:
+                print('Erro! Informe o id no formato especificado.')
+            if id in ids_em_uso:
+                print('Erro! O id digitado ja esta em uso.')
     else:
-        return lista
-def print_lista(lista, lista_nome):
-    print('Relação de {}:\n'.format(lista_nome))
-    for i in lista:
-        print(i)
-    print()
-def rotina_print(funcionarios, veiculos, destinos, lista_nome):
-    print_lista(funcionarios, lista_nome[0])
-    print_lista(veiculos, lista_nome[1])
-    print_lista(destinos, lista_nome[2])
-def predefinicoes():
-    return Funcionario('Roberto', 'motorista'), Funcionario('Carla', 'motorista'), Funcionario('Carlos', 'motorista'), Funcionario('Miguel', 'cobrador'), Funcionario('Helena', 'cobrador'), Funcionario('Laura', 'cobrador'), Onibus('1234',''), Onibus('1324',''), Onibus('4231',''), Onibus('1432',''), Onibus('1423', '')
+        while len(id) != 4 and id in ids_em_uso:
+            id = input(
+                "Informe o id: [4 numeros = cobrador| 2 numeros = motorista] ")
+            if len(id) != 4:
+                print('Erro! Informe o id no formato especificado.')
+            if id in ids_em_uso:
+                print('Erro! O id digitado ja esta em uso.')
+    return id
+
+def verifica_id_em_uso(ids_em_uso):
+    id = ''
+    while id not in ids_em_uso:
+        id = input("Informe o id: ")
+        if id not in ids_em_uso: 
+            print('Erro! O id informado não existe.')
+    return id
+
+def verifica_salario():
+    salario = 0
+    while salario < 2500 or salario > 15000:
+        salario = float(input('Informe o salario [2500 a 15000]: '))
+        if salario < 2500 or salario > 15000:
+            print('Erro! O salario esta fora do intervalo aceito.')
+    return salario
+
+def consultar_destinos(destinos):
+    for destino in destinos:
+        print(destino)
+
+def adicionar_destino(destinos):
+    destino = input('Informe um novo destino: ').lower()
+    while destino in destinos:
+        print('Erro! O destino informado ja esta cadastrado.')
+        destino = input('Informe um novo destino: ').lower()
+    return destino
+
+def remover_destino(destinos):
+    destino = ''
+    while destino not in destinos:
+        destino = input('Informe o destino a ser deletado: ').lower()
+        if destino not in destinos:
+            print('Erro! O destino informado nao existe.')
+    return destino
+
+def verifica_numeracao(numeracoes_em_uso):
+    numero = ''
+    while len(numero) != 4 or numero in numeracoes_em_uso:
+        numero = input('Informe a numeracao do onibus [quatro numeros]: ')
+        if len(numero) != 4:
+            print('Erro! a numeracao deve conter quatro digitos.')
+        if numero in numeracoes_em_uso:
+            print('Erro! O numero digitado ja esta em uso.')
+    return numero
+
+def verifica_numeracao_em_uso(numeracoes_em_uso):
+    numero = ''
+    while numero not in numeracoes_em_uso:
+        numero = input('Informe o numero: ')
+        if numero not in numeracoes_em_uso:
+            print('Erro! Nao existe onibus com essa numeracao.')
+    return numero
+
+def verifica_destino(destinos, onibus_em_atividade,n):
+    destino = ''
+    if n in onibus_em_atividade:
+        while destino != 'retornou':
+            destino = input('Informe o destino ou informe retornou caso tenha retornado: ').lower()
+            if destino != 'retornou':
+                print('Erro! O onibus ja esta em viagem. Assim, so eh possivel retornar.')
+    else:
+        while destino not in destinos:
+            destino = input('Informe o destino ou informe retornou caso tenha retornado: ').lower()
+            if destino not in destinos:
+                print('Erro! Informe um destino existente.')
+            if destino == 'retornou':
+                print('Observacao: O onibus ja nao estava em viagem')
+    return destino
+
+def verifica_funcionarios_atuando(funcionarios_em_atividade):
+    id1 = ''
+    id2 = ''
+    while len(id1) != 4 and len(id1) != 2 or len(id2) != 4 and len(id2) != 2 or len(id1) == len(id2) or id1 in funcionarios_em_atividade or id2 in funcionarios_em_atividade:
+        id1, id2 = input('Informe os IDs dos funcionarios separados por espaço [obs: eh necessario haver um motorista e um cobrador]: ').split()
+        if len(id1) != 4 and len(id1) != 2 or len(id2) != 4 and len(id2) != 2 or len(id1) == len(id2):
+            print('Erro! Escreva no formato especificado.')
+        if id1 in funcionarios_em_atividade or id2 in funcionarios_em_atividade:
+            print('Erro! Um dos ids informados ja esta em viagem.')
+    return id1, id2
