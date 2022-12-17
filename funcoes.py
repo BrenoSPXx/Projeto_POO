@@ -136,8 +136,9 @@ def verifica_funcionarios_atuando(funcionarios_em_atividade):
     return id1, id2
 
 def id_nao_int(id):
+    valores_possiveis = [i for i in range(10)]
     for valor in id:
-        if valor != '0' and valor != '1' and valor != '2' and valor != '3' and valor != '4' and valor != '5' and valor != '6' and valor != '7' and valor != '8' and valor != '9':
+        if valor not in valores_possiveis:
             return True
         else:
             return False

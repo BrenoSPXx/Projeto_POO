@@ -65,7 +65,6 @@ class Sistema:
         destino = verifica_destino(destinos, onibus_em_atividade,n)
         if destino != 'nenhum' and destino != 'retornou':
             id1, id2 = verifica_funcionarios_atuando(funcionarios_em_atividade)
-            
             onibus_em_atividade.append(n)
             funcionarios_em_atividade.append(id1)
             funcionarios_em_atividade.append(id2)
@@ -86,12 +85,10 @@ class Sistema:
 
         else:
             self._controlador_2.atualizar_destino(n, 'retornou')
-            self._controlador_2.atualizar_funcionarios_atuando(n, '', '')
-
             onibus_em_atividade.remove(n)
    
             for ids in self._controlador_2.get_lista_funcionarios_atuando(n):
-                print(ids)
+                print('a')
                 for funcionario in self._controlador_1.consultar():
                     if len(ids) == 4 and funcionario.get_funcao() == 'cobrador':
                         if funcionario.get_id_cobrador() == ids:
@@ -101,6 +98,7 @@ class Sistema:
                         if funcionario.get_id_motorista() == ids:
                             funcionario.set_status(False)
                             funcionario.set_viagem_concluida(True)
+            self._controlador_2.atualizar_funcionarios_atuando(n, '', '')
 
 
 
