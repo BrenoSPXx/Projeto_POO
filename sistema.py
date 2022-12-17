@@ -61,7 +61,7 @@ class Sistema:
 
     def atualizar_onibus(self):
 
-        n = verifica_numeracao_em_uso(numeracoes_em_uso,  onibus_em_atividade)
+        n = verifica_numeracao_em_uso(numeracoes_em_uso)
         destino = verifica_destino(destinos, onibus_em_atividade,n)
         if destino != 'nenhum' and destino != 'retornou':
             id1, id2 = verifica_funcionarios_atuando(funcionarios_em_atividade)
@@ -106,7 +106,7 @@ class Sistema:
 
 
     def deletar_onibus(self):
-        n = verifica_numeracao_em_uso(numeracoes_em_uso, onibus_em_atividade)
+        n = verifica_numeracao_em_uso_deletar(numeracoes_em_uso, onibus_em_atividade)
         numeracoes_em_uso.remove(n)
         self._controlador_2.deletar(n)
 
@@ -132,7 +132,7 @@ class Sistema:
         dia = 0
         cont = 0
         while self._rodando_:
-            if hora == 0:
+            if hora == 24:
                 informacoes_final_expediente(self._controlador_2.consultar(), self._controlador_1.consultar())
                 dia += 1
                 hora = 0

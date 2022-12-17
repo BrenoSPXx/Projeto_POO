@@ -91,7 +91,14 @@ def verifica_numeracao(numeracoes_em_uso):
             print('Erro! O numero digitado ja esta em uso.')
     return numero
 
-def verifica_numeracao_em_uso(numeracoes_em_uso, onibus_em_atividade):
+def verifica_numeracao_em_uso(numeracoes_em_uso):
+    numero = ''
+    while numero not in numeracoes_em_uso:
+        numero = input('Informe o numero: ')
+        if numero not in numeracoes_em_uso:
+            print('Erro! Nao existe onibus com essa numeracao.')
+    return numero
+def verifica_numeracao_em_uso_deletar(numeracoes_em_uso, onibus_em_atividade):
     numero = ''
     while numero not in numeracoes_em_uso or numero in onibus_em_atividade:
         numero = input('Informe o numero: ')
@@ -149,6 +156,7 @@ def quantidade_viagens_por_funcionario(lista_funcionarios):
 
 def ainda_nao_retornou(lista_onibus):
     cont = 0
+    print('Todos retornaram?\n')
     for onibus in lista_onibus:
         if onibus.get_status():
             print(f'Onibus: {onibus.get_numeracao()}')
@@ -156,6 +164,7 @@ def ainda_nao_retornou(lista_onibus):
             print(f'Destino: {onibus.get_destino()}')
             cont += 1
     if cont > 1:
+        print('Nao retornaram.\n')
         print('A policia ja foi acionada.')
     else:
         print('Todos retornaram.')
