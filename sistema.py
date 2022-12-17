@@ -60,28 +60,33 @@ class Sistema:
         self._controlador_2.inserir(n)
 
     def atualizar_onibus(self):
-
+        
         n = verifica_numeracao_em_uso(numeracoes_em_uso)
         destino = verifica_destino(destinos, onibus_em_atividade,n)
-        if destino != 'nenhum' and destino != 'retornou':
-            id1, id2 = verifica_funcionarios_atuando(funcionarios_em_atividade)
-            onibus_em_atividade.append(n)
-            funcionarios_em_atividade.append(id1)
-            funcionarios_em_atividade.append(id2)
+        if destino != 'nenhum' and destino != 'retornou':  
+            if funcionarios_disponiveis(funcionarios_em_atividade, ids_em_uso):  
+                id1, id2 = verifica_funcionarios_atuando(funcionarios_em_atividade)
+                
+                onibus_em_atividade.append(n)
+                funcionarios_em_atividade.append(id1)
+                funcionarios_em_atividade.append(id2)
 
-            self._controlador_2.atualizar_destino(n, destino)
-            self._controlador_2.atualizar_funcionarios_atuando(n, id1, id2)
-            for funcionario in self._controlador_1.consultar():
-                if funcionario.get_funcao() == 'motorista':
-                    if id1 == funcionario.get_id_motorista():
-                        funcionario.set_status(True)
-                    elif id2 == funcionario.get_id_motorista():
-                        funcionario.set_status(True)
-                else:
-                    if id1 == funcionario.get_id_cobrador():
-                        funcionario.set_status(True)
-                    elif id2 == funcionario.get_id_cobrador():
-                        funcionario.set_status(True)
+                self._controlador_2.atualizar_destino(n, destino)
+                self._controlador_2.atualizar_funcionarios_atuando(n, id1, id2)
+                for funcionario in self._controlador_1.consultar():
+                    if funcionario.get_funcao() == 'motorista':
+                        if id1 == funcionario.get_id_motorista():
+                            funcionario.set_status(True)
+                        elif id2 == funcionario.get_id_motorista():
+                            funcionario.set_status(True)
+                    else:
+                        if id1 == funcionario.get_id_cobrador():
+                            funcionario.set_status(True)
+                        elif id2 == funcionario.get_id_cobrador():
+                            funcionario.set_status(True)
+            else:
+
+                print('\nProblema! Nao ha funcionarios suficientes.')
 
         else:
             self._controlador_2.atualizar_destino(n, 'retornou')
@@ -131,7 +136,7 @@ class Sistema:
         dia = 0
         cont = 0
         while self._rodando_:
-            if hora == 1:
+            if hora == 24:
                 informacoes_final_expediente(self._controlador_2.consultar(), self._controlador_1.consultar())
                 for funcionario in self._controlador_1.consultar():
                     funcionario.set_status(False)

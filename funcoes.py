@@ -171,3 +171,19 @@ def ainda_nao_retornou(lista_onibus):
     else:
         print('Todos retornaram.')
 
+def funcionarios_disponiveis(funcionarios_em_atividade, ids_em_uso):
+    cont_cobrador_disponivel = 0
+    cont_motorista_disponivel = 0
+    for funcionario in ids_em_uso:
+        if funcionario not in funcionarios_em_atividade:
+            if len(funcionario) == 4:
+                cont_cobrador_disponivel += 1
+            else:
+                cont_motorista_disponivel += 1
+    
+    if cont_cobrador_disponivel > 0 and cont_motorista_disponivel > 0:
+        return True
+    else:
+        return False
+
+            

@@ -73,8 +73,3 @@ class controlador_funcionarios:
     def tamanho_lista_funcionarios(self):
         return len(self._funcionarios_)
 
-    def lista_id(self):
-        lista = []
-        for funcionario in self._funcionarios_:
-            lista.append(funcionario.get_id())
-        return lista
