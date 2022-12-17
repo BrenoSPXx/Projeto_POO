@@ -1,8 +1,7 @@
 class Funcionario:
 
-    quantidade_viagens = 5
 
-    def __init__(self, nome, funcao, idade, salario, status, cont_viagens, viagem_concluida):
+    def __init__(self, nome, funcao, idade, salario, status = False, cont_viagens = 0, viagem_concluida = False):
         self.nome = nome
         self.funcao = funcao
         self.idade = idade
@@ -46,6 +45,8 @@ class Funcionario:
         self.cont_viagens += 1
         self.viagem_concluida = False
 
+    def get_viagens_cont_viagens(self):
+        return self.cont_viagens
     
     def aumento_salarial(self):
         self.salario += 10 * self.cont_viagens

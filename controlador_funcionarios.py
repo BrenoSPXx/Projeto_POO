@@ -69,6 +69,9 @@ class controlador_funcionarios:
             else:
                 if funcionario.get_id_motorista() == id:
                     self._funcionarios_.remove(funcionario)
+    
+    def tamanho_lista_funcionarios(self):
+        return len(self._funcionarios_)
 
     def lista_id(self):
         lista = []

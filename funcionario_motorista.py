@@ -13,7 +13,7 @@ class Motorista(Funcionario):
         self.id_motorista = novo_id_motorista
     
     def aumento_salarial(self):
-        self.salario += 10
+        self.salario += 10 * self.cont_viagens + 10
 
     def __str__(self):
         return super(Motorista, self).__str__() + f', ID do motorista: {self.id_motorista}'

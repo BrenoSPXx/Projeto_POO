@@ -13,7 +13,7 @@ class Cobrador(Funcionario):
         self.id_cobrador = novo_id_cobrador
     
     def aumento_salarial(self):
-        self.salario += 5
+        self.salario += 10 * self.cont_viagens + 5
 
     def __str__(self):
         return super(Cobrador, self).__str__() + f', ID do cobrador: {self.id_cobrador}'

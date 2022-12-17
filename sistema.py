@@ -33,7 +33,7 @@ class Sistema:
         self._controlador_1.inserir(func)
 
     def atualizar_funcionario(self):
-        id = verifica_id_em_uso(ids_em_uso)
+        id = verifica_id_em_uso(ids_em_uso, funcionarios_em_atividade)
 
         nome = input("Informe o nome: ")
         funcao = verifica_funcao()
@@ -45,7 +45,7 @@ class Sistema:
         self._controlador_1.atualizar_salario(id, salario)
 
     def deletar_funcionario(self):
-        id = verifica_id_em_uso(ids_em_uso)
+        id = verifica_id_em_uso(ids_em_uso, funcionarios_em_atividade)
         ids_em_uso.remove(id)
         self._controlador_1.deletar(id)
 
@@ -61,7 +61,7 @@ class Sistema:
 
     def atualizar_onibus(self):
 
-        n = verifica_numeracao_em_uso(numeracoes_em_uso)
+        n = verifica_numeracao_em_uso(numeracoes_em_uso,  onibus_em_atividade)
         destino = verifica_destino(destinos, onibus_em_atividade,n)
         if destino != 'nenhum' and destino != 'retornou':
             id1, id2 = verifica_funcionarios_atuando(funcionarios_em_atividade)
@@ -85,12 +85,12 @@ class Sistema:
                         funcionario.set_status(True)
 
         else:
-            self._controlador_2.atualizar_destino(n, destino)
+            self._controlador_2.atualizar_destino(n, 'retornou')
             self._controlador_2.atualizar_funcionarios_atuando(n, '', '')
 
             onibus_em_atividade.remove(n)
    
-            for ids in self._controlador_2.get_funcionarios_atuando(n):
+            for ids in self._controlador_2.get_lista_funcionarios_atuando(n):
                 print(ids)
                 for funcionario in self._controlador_1.consultar():
                     if len(ids) == 4 and funcionario.get_funcao() == 'cobrador':
@@ -106,7 +106,7 @@ class Sistema:
 
 
     def deletar_onibus(self):
-        n = verifica_numeracao_em_uso(numeracoes_em_uso)
+        n = verifica_numeracao_em_uso(numeracoes_em_uso, onibus_em_atividade)
         numeracoes_em_uso.remove(n)
         self._controlador_2.deletar(n)
 
@@ -122,6 +122,9 @@ class Sistema:
             idades.append(funcionario.get_idade())
         media(salarios, 'salarios')
         media(idades, 'idades')
+        print(f'Quantidade de funcionarios: {self._controlador_1.tamanho_lista_funcionarios()}')
+        print(f'Quantidade de onibus: {self._controlador_2.tamanho_lista_onibus()}')
+        
 
 
     def funcionando(self):
@@ -130,6 +133,7 @@ class Sistema:
         cont = 0
         while self._rodando_:
             if hora == 24:
+                informacoes_final_expediente()
                 dia += 1
                 hora = 0
             print()
@@ -164,6 +168,7 @@ class Sistema:
                 opcao = int(input("Informe uma opcao: "))
                 if opcao < 1 or opcao > 13:
                     print('Erro! Informe uma opcao valida')
+                print()
 
             if opcao == 1:
                 self.inserir_funcionario()
@@ -178,8 +183,9 @@ class Sistema:
             elif opcao == 6:
                 self.atualizar_onibus()
                 cont += 1
-                if cont == self._controlador_2.tamanho_lista():
+                if cont == self._controlador_2.tamanho_lista_onibus():
                     hora += 1
+                    cont = 0
             elif opcao == 7:
                 self.deletar_onibus()
             elif opcao == 8:
@@ -198,6 +204,3 @@ class Sistema:
 
 
 Sistema().funcionando()
-
-#anotações:
-#verificar se id é numero

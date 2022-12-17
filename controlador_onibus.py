@@ -29,7 +29,7 @@ class controlador_onibus:
             if veiculo.get_numeracao() == numero:
                 veiculo.set_funcionarios_atuando(func1, func2)
     
-    def get_funcionarios_atuando(self, numero):
+    def get_lista_funcionarios_atuando(self, numero):
         for veiculo in self._veiculos_:
             if veiculo.get_numeracao() == numero:
                 return veiculo.get_funcionarios_atuando()
@@ -37,7 +37,7 @@ class controlador_onibus:
     def consultar(self):
         return self._veiculos_[:]
 
-    def tamanho_lista(self):
+    def tamanho_lista_onibus(self):
         return len(self._veiculos_)
 
     def deletar(self, numero):

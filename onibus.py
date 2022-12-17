@@ -33,7 +33,7 @@ class Onibus:
         return [self.func1, self.func2]
 
     def __str__(self):
-        if self.destino == '' or self.destino == 'retornou' or self.status == False:
+        if self.status == False:
             return f'Onibus: {self.numeracao}, destino: nenhum'
         else:
             return f'Onibus: {self.numeracao}, destino: {self.destino}, IDs dos funcionarios atuando: {self.func1}, {self.func2}'
