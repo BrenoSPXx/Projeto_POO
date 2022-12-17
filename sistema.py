@@ -132,8 +132,8 @@ class Sistema:
         dia = 0
         cont = 0
         while self._rodando_:
-            if hora == 24:
-                informacoes_final_expediente()
+            if hora == 0:
+                informacoes_final_expediente(self._controlador_2.consultar(), self._controlador_1.consultar())
                 dia += 1
                 hora = 0
             print()

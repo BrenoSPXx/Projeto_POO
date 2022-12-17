@@ -1,6 +1,7 @@
 from onibus import*
 from funcionario_cobrador import*
 from funcionario_motorista import*
+
 def media(lista, string):
     soma = 0
     for num in lista:

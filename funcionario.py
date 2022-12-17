@@ -45,7 +45,7 @@ class Funcionario:
         self.cont_viagens += 1
         self.viagem_concluida = False
 
-    def get_viagens_cont_viagens(self):
+    def get_cont_viagens(self):
         return self.cont_viagens
     
     def aumento_salarial(self):
