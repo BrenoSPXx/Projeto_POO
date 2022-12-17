@@ -88,16 +88,17 @@ class Sistema:
             onibus_em_atividade.remove(n)
    
             for ids in self._controlador_2.get_lista_funcionarios_atuando(n):
-                print('a')
                 for funcionario in self._controlador_1.consultar():
                     if len(ids) == 4 and funcionario.get_funcao() == 'cobrador':
                         if funcionario.get_id_cobrador() == ids:
                             funcionario.set_status(False)
                             funcionario.set_viagem_concluida(True)
+                            funcionarios_em_atividade.remove(ids)
                     elif len(ids) == 2 and funcionario.get_funcao() == 'motorista':
                         if funcionario.get_id_motorista() == ids:
                             funcionario.set_status(False)
                             funcionario.set_viagem_concluida(True)
+                            funcionarios_em_atividade.remove(ids)
             self._controlador_2.atualizar_funcionarios_atuando(n, '', '')
 
 
@@ -130,75 +131,83 @@ class Sistema:
         dia = 0
         cont = 0
         while self._rodando_:
-            if hora == 24:
+            if hora == 1:
                 informacoes_final_expediente(self._controlador_2.consultar(), self._controlador_1.consultar())
+                for funcionario in self._controlador_1.consultar():
+                    funcionario.set_status(False)
+                    funcionario.set_cont_viagens(0)
+                for onibus in self._controlador_2.consultar():
+                    onibus.set_status(False)
+                funcionarios_em_atividade.clear()
+                onibus_em_atividade.clear()
                 dia += 1
                 hora = 0
-            print()
-            print('-' * 30)
-            print(f'DIA: {dia} | HORÁRIO: {hora}h')
-            print('-' * 30)
+            else:
+                print()
+                print('-' * 30)
+                print(f'DIA: {dia} | HORÁRIO: {hora}h')
+                print('-' * 30)
 
-            print()
-            print('-=' * 30)
-            print('1 - Inserir funcionario')
-            print('2 - Atualizar funcionario')
-            print('3 - Deletar funcionario')
-            print('4 - Consultar funcionario')
-            print()
-            print('5 - Inserir onibus')
-            print('6 - Atualizar onibus')
-            print('7 - Deletar onibus')
-            print('8 - Consultar onibus')
-            print()
-            print('9 - consultar estatisticas da empresa')
-            print()
-            print('10 - Consultar destinos possiveis')
-            print('11 - adicionar destinos')
-            print('12 - deletar destinos')
-            print()
-            print('13 - Sair do programa')
-            print('-=' * 30)
-            print()
-
-            opcao = 0
-            while opcao < 1 or opcao > 13:
-                opcao = int(input("Informe uma opcao: "))
-                if opcao < 1 or opcao > 13:
-                    print('Erro! Informe uma opcao valida')
+                print()
+                print('-=' * 30)
+                print('1 - Inserir funcionario')
+                print('2 - Atualizar funcionario')
+                print('3 - Deletar funcionario')
+                print('4 - Consultar funcionario')
+                print()
+                print('5 - Inserir onibus')
+                print('6 - Atualizar onibus')
+                print('7 - Deletar onibus')
+                print('8 - Consultar onibus')
+                print()
+                print('9 - consultar estatisticas da empresa')
+                print()
+                print('10 - Consultar destinos possiveis')
+                print('11 - adicionar destinos')
+                print('12 - deletar destinos')
+                print()
+                print('13 - Sair do programa')
+                print('-=' * 30)
                 print()
 
-            if opcao == 1:
-                self.inserir_funcionario()
-            elif opcao == 2:
-                self.atualizar_funcionario()
-            elif opcao == 3:
-                self.deletar_funcionario()
-            elif opcao == 4:
-                self.consultar_funcionario()
-            elif opcao == 5:
-                self.inserir_onibus()
-            elif opcao == 6:
-                self.atualizar_onibus()
-                cont += 1
-                if cont == self._controlador_2.tamanho_lista_onibus():
-                    hora += 1
-                    cont = 0
-            elif opcao == 7:
-                self.deletar_onibus()
-            elif opcao == 8:
-                self.consultar_onibus()
-            elif opcao == 9:
-                self.consultar_estatisticas()
-            elif opcao == 10:
-                consultar_destinos(destinos)
-            elif opcao == 11:
-                destinos.append(adicionar_destino(destinos))
-            elif opcao == 12:
-                destinos.remove(remover_destino(destinos))
-            else:
-                print('Fim do programa.')
-                self._rodando_ = False
+                opcao = 0
+                while opcao < 1 or opcao > 13:
+                    opcao = int(input("Informe uma opcao: "))
+                    if opcao < 1 or opcao > 13:
+                        print('Erro! Informe uma opcao valida')
+                    print()
+
+                if opcao == 1:
+                    self.inserir_funcionario()
+                elif opcao == 2:
+                    self.atualizar_funcionario()
+                elif opcao == 3:
+                    self.deletar_funcionario()
+                elif opcao == 4:
+                    self.consultar_funcionario()
+                elif opcao == 5:
+                    self.inserir_onibus()
+                elif opcao == 6:
+                    self.atualizar_onibus()
+                    cont += 1
+                    if cont == self._controlador_2.tamanho_lista_onibus():
+                        hora += 1
+                        cont = 0
+                elif opcao == 7:
+                    self.deletar_onibus()
+                elif opcao == 8:
+                    self.consultar_onibus()
+                elif opcao == 9:
+                    self.consultar_estatisticas()
+                elif opcao == 10:
+                    consultar_destinos(destinos)
+                elif opcao == 11:
+                    destinos.append(adicionar_destino(destinos))
+                elif opcao == 12:
+                    destinos.remove(remover_destino(destinos))
+                else:
+                    print('Fim do programa.')
+                    self._rodando_ = False
 
 
 Sistema().funcionando()

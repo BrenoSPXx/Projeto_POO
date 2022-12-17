@@ -48,6 +48,10 @@ class Funcionario:
     def get_cont_viagens(self):
         return self.cont_viagens
     
+    def set_cont_viagens(self, reiniciar):
+        self.cont_viagens = reiniciar
+
+    
     def aumento_salarial(self):
         self.salario += 10 * self.cont_viagens
 

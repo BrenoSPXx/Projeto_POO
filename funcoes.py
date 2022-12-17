@@ -121,7 +121,7 @@ def verifica_destino(destinos, onibus_em_atividade,n):
             if destino not in destinos:
                 print('Erro! Informe um destino existente.')
             if destino == 'retornou':
-                print('Observacao: O onibus ja nao estava em viagem')
+                print('Observacao: O onibus ja nao esta em viagem')
     return destino
 
 def verifica_funcionarios_atuando(funcionarios_em_atividade):
@@ -149,6 +149,7 @@ def informacoes_final_expediente(lista_onibus, lista_funcionarios):
     ainda_nao_retornou(lista_onibus)
 
 def quantidade_viagens_por_funcionario(lista_funcionarios):
+    print()
     for funcionario in lista_funcionarios:
         if funcionario.get_funcao() == 'cobrador':
             print(f'Funcionario: {funcionario.get_id_cobrador()}. Viagens realizadas: {funcionario.get_cont_viagens()}')
@@ -157,14 +158,14 @@ def quantidade_viagens_por_funcionario(lista_funcionarios):
 
 def ainda_nao_retornou(lista_onibus):
     cont = 0
-    print('Todos retornaram?\n')
+    print('\nTodos retornaram?\n')
     for onibus in lista_onibus:
         if onibus.get_status():
             print(f'Onibus: {onibus.get_numeracao()}')
             print(f'Funcionarios: {onibus.get_funcionarios_atuando()}')
             print(f'Destino: {onibus.get_destino()}')
             cont += 1
-    if cont > 1:
+    if cont > 0:
         print('Nao retornaram.\n')
         print('A policia ja foi acionada.')
     else:
