@@ -2,8 +2,8 @@ from funcionario import Funcionario
 
 
 class Cobrador(Funcionario):
-    def __init__(self, nome, funcao, idade, salario, status, cont_viagens, viagem_concluida, id_cobrador):
-        super().__init__(nome, funcao, idade, salario, status, cont_viagens, viagem_concluida)
+    def __init__(self, nome, funcao, idade, salario, status, cont_viagens, id_cobrador):
+        super().__init__(nome, funcao, idade, salario, status, cont_viagens)
         self.id_cobrador = id_cobrador
 
     def get_id_cobrador(self):
@@ -11,7 +11,7 @@ class Cobrador(Funcionario):
 
     def set_id_cobrador(self, novo_id_cobrador):
         self.id_cobrador = novo_id_cobrador
-    
+
     def aumento_salarial(self):
         self.salario += 10 * self.cont_viagens + 5
 

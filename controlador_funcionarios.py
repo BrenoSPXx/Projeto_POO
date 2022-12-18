@@ -46,7 +46,6 @@ class controlador_funcionarios:
                 if funcionario.get_id_motorista() == id:
                     funcionario.set_salario(salario)
 
-
     def atualizar_status(self, id, status):
         for funcionario in self._funcionarios_:
             if funcionario.get_funcao() == 'cobrador':
@@ -56,10 +55,8 @@ class controlador_funcionarios:
                 if funcionario.get_id_motorista() == id:
                     funcionario.set_status(status)
 
-
     def consultar(self):
         return self._funcionarios_[:]
-
 
     def deletar(self, id):
         for funcionario in self._funcionarios_:
@@ -69,7 +66,6 @@ class controlador_funcionarios:
             else:
                 if funcionario.get_id_motorista() == id:
                     self._funcionarios_.remove(funcionario)
-    
+
     def tamanho_lista_funcionarios(self):
         return len(self._funcionarios_)
-

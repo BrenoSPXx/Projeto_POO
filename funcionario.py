@@ -1,14 +1,12 @@
 class Funcionario:
 
-
-    def __init__(self, nome, funcao, idade, salario, status = False, cont_viagens = 0, viagem_concluida = False):
+    def __init__(self, nome, funcao, idade, salario, status=False, cont_viagens=0):
         self.nome = nome
         self.funcao = funcao
         self.idade = idade
         self.salario = salario
         self.status = status
         self.cont_viagens = cont_viagens
-        self.viagem_concluida = viagem_concluida
 
     def get_nome(self):
         return self.nome
@@ -39,20 +37,17 @@ class Funcionario:
 
     def set_status(self, novo_status):
         self.status = novo_status
-    
-    def set_viagem_concluida(self, nova_viagem_concluida):
-        self.viagem_concluida = nova_viagem_concluida
+
+    def set_viagem_concluida(self):
         self.cont_viagens += 1
         self.aumento_salarial()
-        self.viagem_concluida = False
 
     def get_cont_viagens(self):
         return self.cont_viagens
-    
+
     def set_cont_viagens(self, reiniciar):
         self.cont_viagens = reiniciar
 
-    
     def aumento_salarial(self):
         self.salario += 10 * self.cont_viagens
 

@@ -2,8 +2,8 @@ from funcionario import Funcionario
 
 
 class Motorista(Funcionario):
-    def __init__(self, nome, funcao, idade, salario, status, cont_viagens, viagem_concluida, id_motorista):
-        super().__init__(nome, funcao, idade, salario, status, cont_viagens, viagem_concluida)
+    def __init__(self, nome, funcao, idade, salario, status, cont_viagens, id_motorista):
+        super().__init__(nome, funcao, idade, salario, status, cont_viagens)
         self.id_motorista = id_motorista
 
     def get_id_motorista(self):
@@ -11,7 +11,7 @@ class Motorista(Funcionario):
 
     def set_id_motorista(self, novo_id_motorista):
         self.id_motorista = novo_id_motorista
-    
+
     def aumento_salarial(self):
         self.salario += 10 * self.cont_viagens + 10
 

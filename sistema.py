@@ -13,8 +13,8 @@ destinos = ['praia', 'centro', 'interior']
 
 class Sistema:
     def __init__(self):
-        self._controlador_1 = controlador_funcionarios([Cobrador('Roberto', 'cobrador', 30, 5000, False, 0, False, '0123'), Motorista(
-            'Carlos', 'motorista', 30, 5000, False, 0, False, '34'), Cobrador('Diego', 'cobrador', 30, 5000, False, 0, False, '0102')])
+        self._controlador_1 = controlador_funcionarios([Cobrador('Roberto', 'cobrador', 30, 5000, False, 0, '0123'), Motorista(
+            'Carlos', 'motorista', 30, 5000, False, 0, '34'), Cobrador('Diego', 'cobrador', 30, 5000, False, 0, '0102')])
         self._controlador_2 = controlador_onibus(
             [Onibus('1234', '', False, '', ''), Onibus('1432', '', False, '', ''), Onibus('8954', '', False, '', '')])
         self._rodando_ = True
@@ -26,9 +26,9 @@ class Sistema:
         id = verifica_id(funcao, ids_em_uso)
         salario = verifica_salario()
         if len(id) == 4:
-            func = Cobrador(nome, funcao, idade, salario, False, 0, False, id)
+            func = Cobrador(nome, funcao, idade, salario, False, 0, id)
         else:
-            func = Motorista(nome, funcao, idade, salario, False, 0, False, id)
+            func = Motorista(nome, funcao, idade, salario, False, 0, id)
         ids_em_uso.append(id)
         self._controlador_1.inserir(func)
 
@@ -60,13 +60,14 @@ class Sistema:
         self._controlador_2.inserir(n)
 
     def atualizar_onibus(self):
-        
+
         n = verifica_numeracao_em_uso(numeracoes_em_uso)
-        destino = verifica_destino(destinos, onibus_em_atividade,n)
-        if destino != 'nenhum' and destino != 'retornou':  
-            if funcionarios_disponiveis(funcionarios_em_atividade, ids_em_uso):  
-                id1, id2 = verifica_funcionarios_atuando(funcionarios_em_atividade)
-                
+        destino = verifica_destino(destinos, onibus_em_atividade, n)
+        if destino != 'nenhum' and destino != 'retornou':
+            if funcionarios_disponiveis(funcionarios_em_atividade, ids_em_uso):
+                id1, id2 = verifica_funcionarios_atuando(
+                    funcionarios_em_atividade)
+
                 onibus_em_atividade.append(n)
                 funcionarios_em_atividade.append(id1)
                 funcionarios_em_atividade.append(id2)
@@ -86,31 +87,29 @@ class Sistema:
                             funcionario.set_status(True)
             else:
 
-                print('\nProblema! Nao ha funcionarios suficientes.')
+                print('\nErro! Nao ha funcionarios suficientes.')
 
         else:
             self._controlador_2.atualizar_destino(n, 'retornou')
             onibus_em_atividade.remove(n)
-   
+
             for ids in self._controlador_2.get_lista_funcionarios_atuando(n):
                 for funcionario in self._controlador_1.consultar():
                     if len(ids) == 4 and funcionario.get_funcao() == 'cobrador':
                         if funcionario.get_id_cobrador() == ids:
                             funcionario.set_status(False)
-                            funcionario.set_viagem_concluida(True)
+                            funcionario.set_viagem_concluida()
                             funcionarios_em_atividade.remove(ids)
                     elif len(ids) == 2 and funcionario.get_funcao() == 'motorista':
                         if funcionario.get_id_motorista() == ids:
                             funcionario.set_status(False)
-                            funcionario.set_viagem_concluida(True)
+                            funcionario.set_viagem_concluida()
                             funcionarios_em_atividade.remove(ids)
             self._controlador_2.atualizar_funcionarios_atuando(n, '', '')
 
-
-
-
     def deletar_onibus(self):
-        n = verifica_numeracao_em_uso_deletar(numeracoes_em_uso, onibus_em_atividade)
+        n = verifica_numeracao_em_uso_deletar(
+            numeracoes_em_uso, onibus_em_atividade)
         numeracoes_em_uso.remove(n)
         self._controlador_2.deletar(n)
 
@@ -126,18 +125,19 @@ class Sistema:
             idades.append(funcionario.get_idade())
         media(salarios, 'salarios')
         media(idades, 'idades')
-        print(f'Quantidade de funcionarios: {self._controlador_1.tamanho_lista_funcionarios()}')
-        print(f'Quantidade de onibus: {self._controlador_2.tamanho_lista_onibus()}')
-        
-
+        print(
+            f'Quantidade de funcionarios: {self._controlador_1.tamanho_lista_funcionarios()}')
+        print(
+            f'Quantidade de onibus: {self._controlador_2.tamanho_lista_onibus()}')
 
     def funcionando(self):
         hora = 0
         dia = 0
         cont = 0
         while self._rodando_:
-            if hora == 24:
-                informacoes_final_expediente(self._controlador_2.consultar(), self._controlador_1.consultar())
+            if hora == 1:
+                informacoes_final_expediente(
+                    self._controlador_2.consultar(), self._controlador_1.consultar())
                 for funcionario in self._controlador_1.consultar():
                     funcionario.set_status(False)
                     funcionario.set_cont_viagens(0)

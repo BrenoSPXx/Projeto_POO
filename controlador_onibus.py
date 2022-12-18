@@ -28,7 +28,7 @@ class controlador_onibus:
         for veiculo in self._veiculos_:
             if veiculo.get_numeracao() == numero:
                 veiculo.set_funcionarios_atuando(func1, func2)
-    
+
     def get_lista_funcionarios_atuando(self, numero):
         for veiculo in self._veiculos_:
             if veiculo.get_numeracao() == numero:

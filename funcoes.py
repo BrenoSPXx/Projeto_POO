@@ -1,12 +1,14 @@
-from onibus import*
-from funcionario_cobrador import*
-from funcionario_motorista import*
+from onibus import *
+from funcionario_cobrador import *
+from funcionario_motorista import *
+
 
 def media(lista, string):
     soma = 0
     for num in lista:
         soma += num
     print(f'Media {string}: {soma/len(lista)}')
+
 
 def verifica_idade():
     idade = 0
@@ -16,6 +18,7 @@ def verifica_idade():
             print('Erro! Informe um valor no formato indicado.')
     return idade
 
+
 def verifica_funcao():
     funcao = ''
     while funcao != 'cobrador' and funcao != 'motorista':
@@ -23,6 +26,7 @@ def verifica_funcao():
         if funcao != 'cobrador' and funcao != 'motorista':
             print('Erro! Informe uma funcao valida.')
     return funcao
+
 
 def verifica_id(funcao, ids_em_uso):
     id = ''
@@ -44,15 +48,17 @@ def verifica_id(funcao, ids_em_uso):
                 print('Erro! O id digitado ja esta em uso.')
     return id
 
+
 def verifica_id_em_uso(ids_em_uso, funcionarios_em_atividade):
     id = ''
     while id not in ids_em_uso or id in funcionarios_em_atividade:
         id = input("Informe o id: ")
-        if id not in ids_em_uso: 
+        if id not in ids_em_uso:
             print('Erro! O id informado não existe.')
         if id in funcionarios_em_atividade:
             print('Erro! o funcionario esta atuando no momento.')
     return id
+
 
 def verifica_salario():
     salario = 0
@@ -62,9 +68,11 @@ def verifica_salario():
             print('Erro! O salario esta fora do intervalo aceito.')
     return salario
 
+
 def consultar_destinos(destinos):
     for destino in destinos:
         print(destino)
+
 
 def adicionar_destino(destinos):
     destino = input('Informe um novo destino: ').lower()
@@ -73,6 +81,7 @@ def adicionar_destino(destinos):
         destino = input('Informe um novo destino: ').lower()
     return destino
 
+
 def remover_destino(destinos):
     destino = ''
     while destino not in destinos:
@@ -80,6 +89,7 @@ def remover_destino(destinos):
         if destino not in destinos:
             print('Erro! O destino informado nao existe.')
     return destino
+
 
 def verifica_numeracao(numeracoes_em_uso):
     numero = ''
@@ -91,6 +101,7 @@ def verifica_numeracao(numeracoes_em_uso):
             print('Erro! O numero digitado ja esta em uso.')
     return numero
 
+
 def verifica_numeracao_em_uso(numeracoes_em_uso):
     numero = ''
     while numero not in numeracoes_em_uso:
@@ -98,6 +109,8 @@ def verifica_numeracao_em_uso(numeracoes_em_uso):
         if numero not in numeracoes_em_uso:
             print('Erro! Nao existe onibus com essa numeracao.')
     return numero
+
+
 def verifica_numeracao_em_uso_deletar(numeracoes_em_uso, onibus_em_atividade):
     numero = ''
     while numero not in numeracoes_em_uso or numero in onibus_em_atividade:
@@ -108,32 +121,39 @@ def verifica_numeracao_em_uso_deletar(numeracoes_em_uso, onibus_em_atividade):
             print('Erro! O onibus esta atuando no momento.')
     return numero
 
-def verifica_destino(destinos, onibus_em_atividade,n):
+
+def verifica_destino(destinos, onibus_em_atividade, n):
     destino = ''
     if n in onibus_em_atividade:
         while destino != 'retornou':
-            destino = input('Informe o destino ou informe retornou caso tenha retornado: ').lower()
+            destino = input(
+                'Informe o destino ou informe retornou caso tenha retornado: ').lower()
             if destino != 'retornou':
-                print('Erro! O onibus ja esta em viagem. Assim, so eh possivel retornar.')
+                print(
+                    'Erro! O onibus ja esta em viagem. Assim, so eh possivel retornar.')
     else:
         while destino not in destinos:
-            destino = input('Informe o destino ou informe retornou caso tenha retornado: ').lower()
+            destino = input(
+                'Informe o destino ou informe retornou caso tenha retornado: ').lower()
             if destino not in destinos:
                 print('Erro! Informe um destino existente.')
             if destino == 'retornou':
                 print('Observacao: O onibus ja nao esta em viagem')
     return destino
 
+
 def verifica_funcionarios_atuando(funcionarios_em_atividade):
     id1 = ''
     id2 = ''
     while len(id1) != 4 and len(id1) != 2 or len(id2) != 4 and len(id2) != 2 or len(id1) == len(id2) or id1 in funcionarios_em_atividade or id2 in funcionarios_em_atividade:
-        id1, id2 = input('Informe os IDs dos funcionarios separados por espaço [obs: eh necessario haver um motorista e um cobrador]: ').split()
+        id1, id2 = input(
+            'Informe os IDs dos funcionarios separados por espaço [obs: eh necessario haver um motorista e um cobrador]: ').split()
         if len(id1) != 4 and len(id1) != 2 or len(id2) != 4 and len(id2) != 2 or len(id1) == len(id2):
             print('Erro! Escreva no formato especificado.')
         if id1 in funcionarios_em_atividade or id2 in funcionarios_em_atividade:
             print('Erro! Um dos ids informados ja esta em viagem.')
     return id1, id2
+
 
 def id_nao_int(id):
     valores_possiveis = [i for i in range(10)]
@@ -143,18 +163,23 @@ def id_nao_int(id):
         else:
             return False
 
+
 def informacoes_final_expediente(lista_onibus, lista_funcionarios):
-   
+
     quantidade_viagens_por_funcionario(lista_funcionarios)
     ainda_nao_retornou(lista_onibus)
+
 
 def quantidade_viagens_por_funcionario(lista_funcionarios):
     print()
     for funcionario in lista_funcionarios:
         if funcionario.get_funcao() == 'cobrador':
-            print(f'Funcionario: {funcionario.get_id_cobrador()}. Viagens realizadas: {funcionario.get_cont_viagens()}')
+            print(
+                f'Funcionario: {funcionario.get_id_cobrador()}. Viagens realizadas: {funcionario.get_cont_viagens()}')
         else:
-            print(f'Funcionario: {funcionario.get_id_motorista()}. Viagens realizadas: {funcionario.get_cont_viagens()}')
+            print(
+                f'Funcionario: {funcionario.get_id_motorista()}. Viagens realizadas: {funcionario.get_cont_viagens()}')
+
 
 def ainda_nao_retornou(lista_onibus):
     cont = 0
@@ -166,10 +191,10 @@ def ainda_nao_retornou(lista_onibus):
             print(f'Destino: {onibus.get_destino()}')
             cont += 1
     if cont > 0:
-        print('Nao retornaram.\n')
-        print('A policia ja foi acionada.')
+        print('Nao retornaram, devido uma fila inesperada.\n')
     else:
         print('Todos retornaram.')
+
 
 def funcionarios_disponiveis(funcionarios_em_atividade, ids_em_uso):
     cont_cobrador_disponivel = 0
@@ -180,10 +205,8 @@ def funcionarios_disponiveis(funcionarios_em_atividade, ids_em_uso):
                 cont_cobrador_disponivel += 1
             else:
                 cont_motorista_disponivel += 1
-    
+
     if cont_cobrador_disponivel > 0 and cont_motorista_disponivel > 0:
         return True
     else:
         return False
-
-            
