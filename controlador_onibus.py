@@ -1,9 +1,8 @@
 from onibus import Onibus
-from funcionario_cobrador import *
-from funcionario_motorista import *
 
 
-class controlador_onibus:
+class Controlador_onibus:
+    
     def __init__(self, veiculos=[]):
         self._veiculos_ = veiculos[:]
 

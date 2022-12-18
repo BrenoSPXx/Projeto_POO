@@ -12,7 +12,7 @@ class Motorista(Funcionario):
     def set_id_motorista(self, novo_id_motorista):
         self.id_motorista = novo_id_motorista
 
-    def aumento_salarial(self):
+    def aumento_salarial(self):                 #uso de polimorfismo
         self.salario += 10 * self.cont_viagens + 10
 
     def __str__(self):

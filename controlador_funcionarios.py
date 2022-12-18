@@ -2,7 +2,7 @@ from funcionario_cobrador import *
 from funcionario_motorista import *
 
 
-class controlador_funcionarios:
+class Controlador_funcionarios:
 
     def __init__(self, funcionarios=[]):
         self._funcionarios_ = funcionarios[:]
@@ -18,15 +18,6 @@ class controlador_funcionarios:
             else:
                 if funcionario.get_id_motorista() == id:
                     funcionario.set_nome(nome)
-
-    def atualizar_funcao(self, id, funcao):
-        for funcionario in self._funcionarios_:
-            if funcionario.get_funcao() == 'cobrador':
-                if funcionario.get_id_cobrador() == id:
-                    funcionario.set_funcao(funcao)
-            else:
-                if funcionario.get_id_motorista() == id:
-                    funcionario.set_funcao(funcao)
 
     def atualizar_idade(self, id, idade):
         for funcionario in self._funcionarios_:

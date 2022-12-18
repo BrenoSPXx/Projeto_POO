@@ -31,18 +31,18 @@ def verifica_funcao():
 def verifica_id(funcao, ids_em_uso):
     id = ''
     if funcao == 'motorista':
-        while len(id) != 2 or id in ids_em_uso or id_nao_int():
+        while len(id) != 2 or id in ids_em_uso or id_nao_int(id):
             id = input(
                 "Informe o id: [4 numeros = cobrador| 2 numeros = motorista] ")
-            if len(id) != 2 or id_nao_int():
+            if len(id) != 2 or id_nao_int(id):
                 print('Erro! Informe o id no formato especificado.')
             if id in ids_em_uso:
                 print('Erro! O id digitado ja esta em uso.')
     else:
-        while len(id) != 4 or id in ids_em_uso or id_nao_int():
+        while len(id) != 4 or id in ids_em_uso or id_nao_int(id):
             id = input(
                 "Informe o id: [4 numeros = cobrador| 2 numeros = motorista] ")
-            if len(id) != 4 or id_nao_int():
+            if len(id) != 4 or id_nao_int(id):
                 print('Erro! Informe o id no formato especificado.')
             if id in ids_em_uso:
                 print('Erro! O id digitado ja esta em uso.')
@@ -93,12 +93,14 @@ def remover_destino(destinos):
 
 def verifica_numeracao(numeracoes_em_uso):
     numero = ''
-    while len(numero) != 4 or numero in numeracoes_em_uso:
+    while len(numero) != 4 or numero in numeracoes_em_uso or id_nao_int(numero):
         numero = input('Informe a numeracao do onibus [quatro numeros]: ')
         if len(numero) != 4:
             print('Erro! a numeracao deve conter quatro digitos.')
         if numero in numeracoes_em_uso:
             print('Erro! O numero digitado ja esta em uso.')
+        if id_nao_int(numero):
+            print('Erro! Apenas numeros devem ser digitados.')
     return numero
 
 
@@ -156,12 +158,12 @@ def verifica_funcionarios_atuando(funcionarios_em_atividade):
 
 
 def id_nao_int(id):
-    valores_possiveis = [i for i in range(10)]
+    valores_possiveis = ['0','1', '2', '3','4','5','6','7','8','9']
     for valor in id:
-        if valor not in valores_possiveis:
-            return True
-        else:
+        if valor in valores_possiveis:
             return False
+        else:
+            return True
 
 
 def informacoes_final_expediente(lista_onibus, lista_funcionarios):
@@ -207,6 +209,17 @@ def funcionarios_disponiveis(funcionarios_em_atividade, ids_em_uso):
                 cont_motorista_disponivel += 1
 
     if cont_cobrador_disponivel > 0 and cont_motorista_disponivel > 0:
+        return True
+    else:
+        return False
+
+
+def funcionario_disponivel(funcionarios_em_atividade, ids_em_uso):
+    cont = 0
+    for funcionario in ids_em_uso:
+        if funcionario not in funcionarios_em_atividade:
+            cont += 1
+    if cont > 0:
         return True
     else:
         return False

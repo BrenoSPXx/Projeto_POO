@@ -48,7 +48,7 @@ class Funcionario:
     def set_cont_viagens(self, reiniciar):
         self.cont_viagens = reiniciar
 
-    def aumento_salarial(self):
+    def aumento_salarial(self):                         #uso de polimorfismo
         self.salario += 10 * self.cont_viagens
 
     def __str__(self):

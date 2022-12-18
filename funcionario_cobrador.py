@@ -12,7 +12,7 @@ class Cobrador(Funcionario):
     def set_id_cobrador(self, novo_id_cobrador):
         self.id_cobrador = novo_id_cobrador
 
-    def aumento_salarial(self):
+    def aumento_salarial(self):                 #uso de polimorfismo
         self.salario += 10 * self.cont_viagens + 5
 
     def __str__(self):
