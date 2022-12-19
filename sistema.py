@@ -142,9 +142,9 @@ class Sistema:
         media(salarios, 'salarios')                         #é realizada a média desses valores
         media(idades, 'idades')
         print(
-            f'Quantidade de funcionarios: {self._controlador_1.tamanho_lista_funcionarios()}')      #retorna a quantidade de funcionários da empresa
+            f'Quantidade de funcionarios: {self._controlador_1.tamanho_lista_funcionarios()}')      #retorna a quantidade de funcionários do terminal
         print(
-            f'Quantidade de onibus: {self._controlador_2.tamanho_lista_onibus()}')                  #retorna a quantidade de ônibus da empresa
+            f'Quantidade de onibus: {self._controlador_2.tamanho_lista_onibus()}')                  #retorna a quantidade de ônibus do terminal
 
     def funcionando(self):
         hora = 0    #conta hora
@@ -161,8 +161,8 @@ class Sistema:
                     onibus.set_status(False)
                 funcionarios_em_atividade.clear()
                 onibus_em_atividade.clear()
-                dia += 1
-                hora = 0
+                dia += 1 #dia incrementa
+                hora = 0 #hora retorna a 0
             else:                                           #opções oferecidas pelo programa
                 print()
                 print('-' * 30)
@@ -210,11 +210,11 @@ class Sistema:
                     self.inserir_onibus()
                 elif opcao == 6:
                     self.atualizar_onibus()
-                    cont += 1
-                    if cont == self._controlador_2.tamanho_lista_onibus():
-                        hora += 1
-                        cont = 0
-                elif opcao == 7:
+                    cont += 1                                                   #a cada atualização do ônibus o contador incrementa
+                    if cont == self._controlador_2.tamanho_lista_onibus():      #se o contador chegar ao tamanho da lista de ônibus, a hora incrementa
+                        hora += 1                                               #obs: essa lógica foi feita para fim de testes e foi a forma que eu encontrei
+                        cont = 0                                                #de tornar a passagem de tempo um pouco mais coerente, visto que, dessa forma,
+                elif opcao == 7:                                                #todos os veículos podem ser atualizados sem que a hora seja incrementada.
                     self.deletar_onibus()
                 elif opcao == 8:
                     self.consultar_onibus()
